@@ -40,7 +40,7 @@
 
                 </form>
 
-                <p class="text-center text-muted mt-5 mb-0">Not registered yet? <a href="login.php" class="fw-bold text-body"><u>Register here</u></a></p>
+                <p class="text-center text-muted mt-5 mb-0">Not registered yet? <a href="./index.php" class="fw-bold text-body"><u>Register here</u></a></p>
 
               </div>
               <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">

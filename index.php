@@ -2,27 +2,29 @@
 
 include 'config.php';
 
-error_reporting(0);
+ error_reporting(0);
 
 
 if(isset($_POST['submit'])) {
-            $firstName = $_POST['fName'];
-            $lastName = $_POST['lName'];
-            $username = $_POST['uname'];
-            $email = $_POST['email'];
-            $password = md5($_POST['password']);
-            $cpassword = md5($_POST['cpassword']);
-            $number = $_POST['contactno'];
-
-            if($password == $cpassword) {
+            $firstName = $_REQUEST['fname'];
+            $lastName = $_REQUEST['lname'];
+            $username = $_REQUEST['uname'];
+            $email = $_REQUEST['email'];
+            $password = md5($_REQUEST['password']);
+            $cpassword = md5($_REQUEST['cpassword']);
+            $number = $_REQUEST['contactno'];
+          if($password === $cpassword) {
               $sql = "SELECT * FROM userdata WHERE email = '$email'";
               $result = mysqli_query($conn, $sql);
-                if(!result($result->num_rows > 0 )){
-                  $sql = "INSERT INTO userdata (first_name,last_name,username,email,password,contact number)
+              echo "<script>console.log('Debug Objects: " . $sql . "' );</script>";
+              // echo "<script>console.log('Debug Objects: " . $result . "' );</script>";
+                if(!($result->num_rows > 0 )){
+                  $sql = "INSERT INTO userdata (first_name,last_name,username,email,password,contact_number)
                             VALUES ('$firstName','$lastName','$username','$email','$cpassword','$number')";
               $result = mysqli_query($conn, $sql);
               if($result) {
                   echo "<script>alert('user registered')</script>";
+                  mysqli_close($conn);
                   $firstName = "";
                   $lastName = "";
                   $username = "";
@@ -72,7 +74,7 @@ if(isset($_POST['submit'])) {
 
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Register</p>
 
-                <form class="mx-1 mx-md-4" action="/login.php" method="POST">
+                <form class="mx-1 mx-md-4" action="./login.php" method="POST">
 
                   <div class="d-flex flex-row align-items-center mb-4">
                     <div class="form-outline flex-fill mb-0">
@@ -95,7 +97,7 @@ if(isset($_POST['submit'])) {
 
                   <div class="d-flex flex-row align-items-center mb-4">
                     <div class="form-outline flex-fill mb-0">
-                      <input type="email" id="form3Example3c" class="form-control" name=" email "placeholder="email  ex:email@email.com" required/>
+                      <input type="email" id="form3Example3c" class="form-control" name="email"placeholder="email  ex:email@email.com" required/>
                     </div>
                   </div>
 
@@ -118,7 +120,7 @@ if(isset($_POST['submit'])) {
                   </div>
 
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <button type="button" name="submit" class="btn btn-primary btn-lg">Register</button>
+                    <button type="submit" name="submit" class="btn btn-primary btn-lg">Register</button>
                   </div>
 
                   <p class="text-center text-muted mt-5 mb-0">Already registered? <a href="login.php" class="fw-bold text-body"><u>Login here</u></a></p>
